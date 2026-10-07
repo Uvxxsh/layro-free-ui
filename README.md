@@ -3,6 +3,9 @@
 Production-ready React and Tailwind UI components for AI applications, dashboards, SaaS products, and modern web applications.
 
 [![Layro](https://img.shields.io/badge/Layro-UI%20Components-11BF58)](https://layropro.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![React](https://img.shields.io/badge/React-18%20%7C%2019-61DAFB)](https://react.dev)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-v4-38BDF8)](https://tailwindcss.com)
 
 ## What is Layro?
 
@@ -16,31 +19,37 @@ https://layropro.com/components
 
 ## Free components
 
-This repository contains a curated selection of free Layro components.
+This repository contains 15 free Layro components. Each one is a single file you can copy into your project.
 
 ### AI UI
 
-- [AI Chat](https://layropro.com/components/ai-chat)
-- [Chat Message](https://layropro.com/components/chat-message)
-- [Streaming Response](https://layropro.com/components/streaming-response)
-- [Thinking State](https://layropro.com/components/thinking-state)
-- [Message Actions](https://layropro.com/components/message-actions)
-- [Prompt Input](https://layropro.com/components/prompt-input)
+| Component | What it does | Source | Live demo |
+|---|---|---|---|
+| AI Chat | A complete chat window: welcome screen, streaming answers, thinking state, actions and input | [`ai-chat.tsx`](components/ai-chat.tsx) | [Demo](https://layropro.com/components/ai-chat) |
+| Chat Message | User and assistant messages with sources, attachments and error states | [`chat-message.tsx`](components/chat-message.tsx) | [Demo](https://layropro.com/components/chat-message) |
+| Streaming Response | Markdown that renders cleanly while tokens are still arriving | [`streaming-response.tsx`](components/streaming-response.tsx) | [Demo](https://layropro.com/components/streaming-response) |
+| Thinking State | What the model is doing before the first word, with steps and elapsed time | [`thinking-state.tsx`](components/thinking-state.tsx) | [Demo](https://layropro.com/components/thinking-state) |
+| Message Actions | Copy, regenerate, feedback and answer versions under a reply | [`message-actions.tsx`](components/message-actions.tsx) | [Demo](https://layropro.com/components/message-actions) |
+| Prompt Input | Auto-growing prompt box with send, stop and tool buttons | [`prompt-input.tsx`](components/prompt-input.tsx) | [Demo](https://layropro.com/components/prompt-input) |
 
 ### Dashboard & SaaS UI
 
-- [Data Table](https://layropro.com/components/data-table)
-- [Charts](https://layropro.com/components/chart)
-- [Members Table](https://layropro.com/components/members-table)
-- [Plan Picker](https://layropro.com/components/plan-picker)
+| Component | What it does | Source | Live demo |
+|---|---|---|---|
+| Data Table | TanStack Table with sorting, filtering, selection, column visibility and pagination | [`data-table.tsx`](components/data-table.tsx) | [Demo](https://layropro.com/components/data-table) |
+| Charts | Recharts area, bar, donut, sparkline and KPI cards with an accessible data fallback | [`chart.tsx`](components/chart.tsx) | [Demo](https://layropro.com/components/chart) |
+| Members Table | Team members with roles, filters, bulk actions and a preview of what they change | [`members-table.tsx`](components/members-table.tsx) | [Demo](https://layropro.com/components/members-table) |
+| Plan Picker | Change plan with the exact charge shown before you confirm | [`plan-picker.tsx`](components/plan-picker.tsx) | [Demo](https://layropro.com/components/plan-picker) |
 
 ### Essential UI
 
-- [File Upload](https://layropro.com/components/file-upload)
-- [Button](https://layropro.com/components/button)
-- [Command Menu](https://layropro.com/components/command)
-- [Dialog](https://layropro.com/components/dialog)
-- [Auth Forms](https://layropro.com/components/auth)
+| Component | What it does | Source | Live demo |
+|---|---|---|---|
+| File Upload | Drag and drop, paste, progress with time left, retry, URL import and previews | [`file-upload.tsx`](components/file-upload.tsx) | [Demo](https://layropro.com/components/file-upload) |
+| Button | Variants, sizes, loading state and icon buttons | [`button.tsx`](components/button.tsx) | [Demo](https://layropro.com/components/button) |
+| Command Menu | A ⌘K command palette built on cmdk | [`command.tsx`](components/command.tsx) | [Demo](https://layropro.com/components/command) |
+| Dialog | Accessible dialogs plus a confirm dialog with type-to-confirm | [`dialog.tsx`](components/dialog.tsx) | [Demo](https://layropro.com/components/dialog) |
+| Auth Forms | Sign in, sign up, forgot password and one-time code forms | [`auth.tsx`](components/auth.tsx) | [Demo](https://layropro.com/components/auth) |
 
 ## Getting started
 
@@ -78,6 +87,26 @@ Copy [`styles/layro-free.css`](styles/layro-free.css) into your project and impo
 ```
 
 Light and dark mode follow the `.dark` class, the same as shadcn/ui.
+
+## Quick example
+
+```tsx
+import { AIChat } from "@/components/ui/ai-chat";
+
+export default function Page() {
+  return (
+    <AIChat
+      assistant={{ name: "Assistant" }}
+      welcome={{ title: "How can I help?", starters: ["Summarise this week's sales"] }}
+      // Omit onSend to try it with the built-in simulator.
+      onSend={async function* ({ messages, signal }) {
+        const res = await fetch("/api/chat", { method: "POST", body: JSON.stringify({ messages }), signal });
+        for await (const chunk of res.body!.pipeThrough(new TextDecoderStream())) yield chunk;
+      }}
+    />
+  );
+}
+```
 
 ## Why Layro?
 
