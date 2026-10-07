@@ -44,7 +44,7 @@ This repository contains a curated selection of free Layro components.
 
 ## Getting started
 
-Each component is a single self-contained `.tsx` file. Copy the ones you want into your project (for example `components/ui/`). Chat Message, Prompt Input, Streaming Response, Message Actions, Data Table, Dialog and Auth Forms import `./button`, so copy `button.tsx` next to them.
+Each component is a single self-contained `.tsx` file. Copy the ones you want into your project (for example `components/ui/`). Chat Message, Prompt Input, Streaming Response, Message Actions, Data Table, Dialog and Auth Forms import `./button`, so copy `button.tsx` next to them. AI Chat is built from the other AI components, so copy it together with `button.tsx`, `chat-message.tsx`, `streaming-response.tsx`, `thinking-state.tsx`, `message-actions.tsx` and `prompt-input.tsx`.
 
 ### 1. Install the dependencies
 
@@ -59,6 +59,7 @@ A few need one more package:
 | Component | Extra packages |
 |---|---|
 | Button | `@radix-ui/react-slot` |
+| AI Chat | `@radix-ui/react-tooltip` |
 | Charts | `recharts` |
 | Data Table | `@tanstack/react-table` |
 | Command Menu | `cmdk @radix-ui/react-dialog` |
