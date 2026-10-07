@@ -1,0 +1,456 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "layro-free",
+  "homepage": "https://layropro.com",
+  "items": [
+    {
+      "name": "theme",
+      "type": "registry:style",
+      "title": "Layro Free theme",
+      "description": "Success, warning and info colours, two shadows, and the enter/exit and AI animations the components use. Works on top of any shadcn/ui theme.",
+      "cssVars": {
+        "theme": {
+          "shadow-float": "0 1px 2px oklch(0 0 0 / 0.06), 0 8px 24px oklch(0 0 0 / 0.1)",
+          "shadow-overlay": "0 2px 6px oklch(0 0 0 / 0.08), 0 24px 64px oklch(0 0 0 / 0.18)",
+          "ease-out-soft": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "animate-fade-in": "layro-fade-in 180ms var(--ease-out-soft)",
+          "animate-fade-out": "layro-fade-out 120ms ease-in",
+          "animate-pop-in": "layro-pop-in 160ms var(--ease-out-soft)",
+          "animate-pop-out": "layro-pop-out 110ms ease-in",
+          "animate-dialog-in": "layro-dialog-in 220ms var(--ease-out-soft)",
+          "animate-dialog-out": "layro-dialog-out 140ms ease-in",
+          "animate-shimmer": "layro-shimmer 2.2s linear infinite",
+          "animate-caret": "layro-caret 1.05s steps(1, end) infinite",
+          "animate-word-in": "layro-word-in 380ms var(--ease-out-soft) both",
+          "animate-dot": "layro-dot 1.25s ease-in-out infinite"
+        },
+        "light": {
+          "success": "oklch(0.508 0.118 165.612)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.525 0.155 48)",
+          "warning-fill": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.205 0 0)",
+          "info": "oklch(0.546 0.245 262.881)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "success": "oklch(0.765 0.177 163.223)",
+          "success-foreground": "oklch(0.205 0 0)",
+          "warning": "oklch(0.828 0.189 84.429)",
+          "warning-fill": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.205 0 0)",
+          "info": "oklch(0.707 0.165 254.624)",
+          "info-foreground": "oklch(0.205 0 0)"
+        }
+      },
+      "css": {
+        "@keyframes layro-fade-in": {
+          "from": {
+            "opacity": "0"
+          }
+        },
+        "@keyframes layro-fade-out": {
+          "to": {
+            "opacity": "0"
+          }
+        },
+        "@keyframes layro-pop-in": {
+          "from": {
+            "opacity": "0",
+            "transform": "scale(0.96) translateY(var(--pop-y, -4px))"
+          }
+        },
+        "@keyframes layro-pop-out": {
+          "to": {
+            "opacity": "0",
+            "transform": "scale(0.97)"
+          }
+        },
+        "@keyframes layro-dialog-in": {
+          "from": {
+            "opacity": "0",
+            "transform": "translateY(8px) scale(0.97)"
+          }
+        },
+        "@keyframes layro-dialog-out": {
+          "to": {
+            "opacity": "0",
+            "transform": "translateY(4px) scale(0.98)"
+          }
+        },
+        "@keyframes layro-shimmer": {
+          "from": {
+            "background-position": "200% 0"
+          },
+          "to": {
+            "background-position": "-200% 0"
+          }
+        },
+        "@keyframes layro-caret": {
+          "50%": {
+            "opacity": "0"
+          }
+        },
+        "@keyframes layro-word-in": {
+          "from": {
+            "opacity": "0",
+            "filter": "blur(3px)"
+          }
+        },
+        "@keyframes layro-dot": {
+          "0%, 60%, 100%": {
+            "transform": "translateY(0)",
+            "opacity": "0.35"
+          },
+          "30%": {
+            "transform": "translateY(-3px)",
+            "opacity": "1"
+          }
+        }
+      }
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Variants, sizes, loading state and icon buttons.",
+      "dependencies": [
+        "@radix-ui/react-slot@^1",
+        "lucide-react@^1"
+      ],
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/button.tsx",
+          "type": "registry:ui",
+          "target": "components/layro/button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "ai-chat",
+      "type": "registry:ui",
+      "title": "AI Chat",
+      "description": "A complete chat window: welcome screen, streaming answers, thinking state, actions and input.",
+      "dependencies": [
+        "@radix-ui/react-tooltip@^1",
+        "clsx@^2",
+        "framer-motion@^13",
+        "lucide-react@^1",
+        "tailwind-merge@^3"
+      ],
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/theme.json",
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/button.json",
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/chat-message.json",
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/message-actions.json",
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/prompt-input.json",
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/streaming-response.json",
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/thinking-state.json"
+      ],
+      "files": [
+        {
+          "path": "components/ai-chat.tsx",
+          "type": "registry:ui",
+          "target": "components/layro/ai-chat.tsx"
+        }
+      ]
+    },
+    {
+      "name": "chat-message",
+      "type": "registry:ui",
+      "title": "Chat Message",
+      "description": "User and assistant messages with sources, attachments and error states.",
+      "dependencies": [
+        "clsx@^2",
+        "framer-motion@^13",
+        "lucide-react@^1",
+        "tailwind-merge@^3"
+      ],
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/theme.json",
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "components/chat-message.tsx",
+          "type": "registry:ui",
+          "target": "components/layro/chat-message.tsx"
+        }
+      ]
+    },
+    {
+      "name": "streaming-response",
+      "type": "registry:ui",
+      "title": "Streaming Response",
+      "description": "Markdown that renders cleanly while tokens are still arriving.",
+      "dependencies": [
+        "clsx@^2",
+        "framer-motion@^13",
+        "lucide-react@^1",
+        "tailwind-merge@^3"
+      ],
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/theme.json",
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "components/streaming-response.tsx",
+          "type": "registry:ui",
+          "target": "components/layro/streaming-response.tsx"
+        }
+      ]
+    },
+    {
+      "name": "thinking-state",
+      "type": "registry:ui",
+      "title": "Thinking State",
+      "description": "What the model is doing before the first word, with steps and elapsed time.",
+      "dependencies": [
+        "clsx@^2",
+        "framer-motion@^13",
+        "lucide-react@^1",
+        "tailwind-merge@^3"
+      ],
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/thinking-state.tsx",
+          "type": "registry:ui",
+          "target": "components/layro/thinking-state.tsx"
+        }
+      ]
+    },
+    {
+      "name": "message-actions",
+      "type": "registry:ui",
+      "title": "Message Actions",
+      "description": "Copy, regenerate, feedback and answer versions under a reply.",
+      "dependencies": [
+        "clsx@^2",
+        "framer-motion@^13",
+        "lucide-react@^1",
+        "tailwind-merge@^3"
+      ],
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/theme.json",
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "components/message-actions.tsx",
+          "type": "registry:ui",
+          "target": "components/layro/message-actions.tsx"
+        }
+      ]
+    },
+    {
+      "name": "prompt-input",
+      "type": "registry:ui",
+      "title": "Prompt Input",
+      "description": "Auto-growing prompt box with send, stop and tool buttons.",
+      "dependencies": [
+        "clsx@^2",
+        "framer-motion@^13",
+        "lucide-react@^1",
+        "tailwind-merge@^3"
+      ],
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/theme.json",
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "components/prompt-input.tsx",
+          "type": "registry:ui",
+          "target": "components/layro/prompt-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "data-table",
+      "type": "registry:ui",
+      "title": "Data Table",
+      "description": "TanStack Table with sorting, filtering, selection, column visibility and pagination.",
+      "dependencies": [
+        "@tanstack/react-table@^8",
+        "clsx@^2",
+        "lucide-react@^1",
+        "tailwind-merge@^3"
+      ],
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/theme.json",
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "components/data-table.tsx",
+          "type": "registry:ui",
+          "target": "components/layro/data-table.tsx"
+        }
+      ]
+    },
+    {
+      "name": "chart",
+      "type": "registry:ui",
+      "title": "Charts",
+      "description": "Recharts area, bar, donut, sparkline and KPI cards with an accessible data fallback.",
+      "dependencies": [
+        "clsx@^2",
+        "lucide-react@^1",
+        "recharts@^2",
+        "tailwind-merge@^3"
+      ],
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/chart.tsx",
+          "type": "registry:ui",
+          "target": "components/layro/chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "members-table",
+      "type": "registry:ui",
+      "title": "Members Table",
+      "description": "Team members with roles, filters, bulk actions and a preview of what they change.",
+      "dependencies": [
+        "clsx@^2",
+        "framer-motion@^13",
+        "lucide-react@^1",
+        "tailwind-merge@^3"
+      ],
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/members-table.tsx",
+          "type": "registry:ui",
+          "target": "components/layro/members-table.tsx"
+        }
+      ]
+    },
+    {
+      "name": "plan-picker",
+      "type": "registry:ui",
+      "title": "Plan Picker",
+      "description": "Change plan with the exact charge shown before you confirm.",
+      "dependencies": [
+        "framer-motion@^13",
+        "lucide-react@^1"
+      ],
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/plan-picker.tsx",
+          "type": "registry:ui",
+          "target": "components/layro/plan-picker.tsx"
+        }
+      ]
+    },
+    {
+      "name": "file-upload",
+      "type": "registry:ui",
+      "title": "File Upload",
+      "description": "Drag and drop, paste, progress with time left, retry, URL import and previews.",
+      "dependencies": [
+        "clsx@^2",
+        "framer-motion@^13",
+        "lucide-react@^1",
+        "tailwind-merge@^3"
+      ],
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/file-upload.tsx",
+          "type": "registry:ui",
+          "target": "components/layro/file-upload.tsx"
+        }
+      ]
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "title": "Command Menu",
+      "description": "A command palette built on cmdk.",
+      "dependencies": [
+        "@radix-ui/react-dialog@^1",
+        "clsx@^2",
+        "cmdk@^1",
+        "lucide-react@^1",
+        "tailwind-merge@^3"
+      ],
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/command.tsx",
+          "type": "registry:ui",
+          "target": "components/layro/command.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Accessible dialogs plus a confirm dialog with type-to-confirm.",
+      "dependencies": [
+        "@radix-ui/react-dialog@^1",
+        "clsx@^2",
+        "lucide-react@^1",
+        "tailwind-merge@^3"
+      ],
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/theme.json",
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "components/dialog.tsx",
+          "type": "registry:ui",
+          "target": "components/layro/dialog.tsx"
+        }
+      ]
+    },
+    {
+      "name": "auth",
+      "type": "registry:ui",
+      "title": "Auth Forms",
+      "description": "Sign in, sign up, forgot password and one-time code forms.",
+      "dependencies": [
+        "@radix-ui/react-checkbox@^1",
+        "@radix-ui/react-label@^2",
+        "clsx@^2",
+        "input-otp@^1",
+        "lucide-react@^1",
+        "tailwind-merge@^3"
+      ],
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/theme.json",
+        "https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "components/auth.tsx",
+          "type": "registry:ui",
+          "target": "components/layro/auth.tsx"
+        }
+      ]
+    }
+  ]
+}
