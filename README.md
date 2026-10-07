@@ -42,6 +42,42 @@ This repository contains a curated selection of free Layro components.
 - [Dialog](https://layropro.com/components/dialog)
 - [Auth Forms](https://layropro.com/components/auth)
 
+## Getting started
+
+Each component is a single self-contained `.tsx` file. Copy the ones you want into your project (for example `components/ui/`). Chat Message, Prompt Input, Streaming Response, Message Actions, Data Table, Dialog and Auth Forms import `./button`, so copy `button.tsx` next to them.
+
+### 1. Install the dependencies
+
+Every component needs React 18 or 19 and Tailwind CSS v4. Most also use:
+
+```bash
+npm i clsx tailwind-merge lucide-react framer-motion
+```
+
+A few need one more package:
+
+| Component | Extra packages |
+|---|---|
+| Button | `@radix-ui/react-slot` |
+| Charts | `recharts` |
+| Data Table | `@tanstack/react-table` |
+| Command Menu | `cmdk @radix-ui/react-dialog` |
+| Dialog | `@radix-ui/react-dialog` |
+| Auth Forms | `@radix-ui/react-checkbox @radix-ui/react-label input-otp` |
+
+### 2. Add the theme
+
+The components use the standard shadcn/ui colour variables (`background`, `card`, `foreground`, `muted`, `primary`, `border`, `ring`, `destructive`, `chart-1` to `chart-5`), so an existing shadcn/ui theme already covers most of them.
+
+Copy [`styles/layro-free.css`](styles/layro-free.css) into your project and import it after Tailwind. It adds the success, warning and info colours, two shadows, and the animations for dialogs, menus and the AI components:
+
+```css
+@import "tailwindcss";
+@import "./styles/layro-free.css";
+```
+
+Light and dark mode follow the `.dark` class, the same as shadcn/ui.
+
 ## Why Layro?
 
 Layro components are designed around real product requirements rather than isolated visual examples.
