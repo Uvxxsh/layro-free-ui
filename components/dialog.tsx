@@ -4,27 +4,12 @@ import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import { clsx, type ClassValue } from "clsx";
-import { extendTailwindMerge } from "tailwind-merge";
+import { twMerge } from "tailwind-merge";
 import { Button, type ButtonProps } from "./button";
 
 /* ==========================================================================
    Local utilities
-
-   Inlined so this file is standalone.
    ========================================================================== */
-
-/** Joins class names; a later Tailwind class wins over an earlier one. */
-const twMerge = extendTailwindMerge({
-  extend: {
-    classGroups: {
-      shadow: [{ shadow: ["float", "overlay"] }],
-    },
-  },
-});
-
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
 
 const FOCUS =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
@@ -37,6 +22,10 @@ const LAYER = {
 } as const;
 
 const SQUIRCLE = "[corner-shape:squircle]";
+
+function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 /* ==========================================================================
    Dialog, and ConfirmDialog
@@ -91,9 +80,17 @@ export const DialogOverlay = React.forwardRef<
   );
 });
 
-const WIDTH = { sm: "max-w-[400px]", md: "max-w-[480px]", lg: "max-w-[640px]", xl: "max-w-[860px]" } as const;
+const WIDTH = {
+  sm: "max-w-[400px]",
+  md: "max-w-[480px]",
+  lg: "max-w-[640px]",
+  xl: "max-w-[860px]",
+} as const;
 
-export interface DialogContentProps extends Omit<React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>, "title"> {
+export interface DialogContentProps extends Omit<
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>,
+  "title"
+> {
   /** Rendered as the dialog's accessible name. Required — use `hideTitle` if the design has no visible title. */
   title: React.ReactNode;
   /** One or two sentences: what happens, and what it affects. */
@@ -105,59 +102,93 @@ export interface DialogContentProps extends Omit<React.ComponentPropsWithoutRef<
   showClose?: boolean;
 }
 
-export const DialogContent = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Content>, DialogContentProps>(
-  function DialogContent(
-    { className, children, title, description, hideTitle = false, size = "md", showClose = true, style, ...props },
-    ref,
-  ) {
-    return (
-      <DialogPortal>
-        <DialogOverlay />
-        <DialogPrimitive.Content
-          ref={ref}
-          style={{ zIndex: LAYER.dialog, ...style }}
-          {...(description ? null : { "aria-describedby": props["aria-describedby"] })}
-          className={cn(
-            "fixed top-1/2 left-1/2 w-[calc(100vw-32px)] -translate-x-1/2 -translate-y-1/2",
-            "grid max-h-[calc(100dvh-48px)] gap-4 overflow-y-auto rounded-[18px] bg-card p-5 text-card-foreground shadow-overlay ring-1 ring-border sm:p-6",
-            "motion-safe:data-[state=open]:animate-dialog-in motion-safe:data-[state=closed]:animate-dialog-out",
-            "outline-none",
-            WIDTH[size],
-            SQUIRCLE,
-            className,
-          )}
-          {...props}
-        >
-          <div className={cn("grid gap-1.5 pr-8", hideTitle && !description && "sr-only")}>
-            <DialogPrimitive.Title className={cn("text-[15px] leading-snug font-semibold tracking-[-0.01em]", hideTitle && "sr-only")}>
-              {title}
-            </DialogPrimitive.Title>
-            {description && (
-              <DialogPrimitive.Description className="text-[13px] leading-relaxed text-muted-foreground">
-                {description}
-              </DialogPrimitive.Description>
-            )}
-          </div>
-          {children}
-          {showClose && (
-            <DialogPrimitive.Close
-              aria-label="Close"
-              className={cn(
-                "absolute top-3.5 right-3.5 grid size-8 cursor-pointer place-items-center rounded-[9px] text-muted-foreground transition-colors hover:bg-accent hover:text-foreground",
-                FOCUS,
-              )}
-            >
-              <X className="size-4" aria-hidden />
-            </DialogPrimitive.Close>
-          )}
-        </DialogPrimitive.Content>
-      </DialogPortal>
-    );
+export const DialogContent = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Content>,
+  DialogContentProps
+>(function DialogContent(
+  {
+    className,
+    children,
+    title,
+    description,
+    hideTitle = false,
+    size = "md",
+    showClose = true,
+    style,
+    ...props
   },
-);
+  ref,
+) {
+  return (
+    <DialogPortal>
+      <DialogOverlay />
+      <DialogPrimitive.Content
+        ref={ref}
+        style={{ zIndex: LAYER.dialog, ...style }}
+        {...(description
+          ? null
+          : { "aria-describedby": props["aria-describedby"] })}
+        className={cn(
+          "fixed top-1/2 left-1/2 w-[calc(100vw-32px)] -translate-x-1/2 -translate-y-1/2",
+          "grid max-h-[calc(100dvh-48px)] gap-4 overflow-y-auto rounded-[18px] bg-card p-5 text-card-foreground shadow-overlay ring-1 ring-border sm:p-6",
+          "motion-safe:data-[state=open]:animate-dialog-in motion-safe:data-[state=closed]:animate-dialog-out",
+          "outline-none",
+          WIDTH[size],
+          SQUIRCLE,
+          className,
+        )}
+        {...props}
+      >
+        <div
+          className={cn(
+            "grid gap-1.5 pr-8",
+            hideTitle && !description && "sr-only",
+          )}
+        >
+          <DialogPrimitive.Title
+            className={cn(
+              "text-[15px] leading-snug font-semibold tracking-[-0.01em]",
+              hideTitle && "sr-only",
+            )}
+          >
+            {title}
+          </DialogPrimitive.Title>
+          {description && (
+            <DialogPrimitive.Description className="text-[13px] leading-relaxed text-muted-foreground">
+              {description}
+            </DialogPrimitive.Description>
+          )}
+        </div>
+        {children}
+        {showClose && (
+          <DialogPrimitive.Close
+            aria-label="Close"
+            className={cn(
+              "absolute top-3.5 right-3.5 grid size-8 cursor-pointer place-items-center rounded-[9px] text-muted-foreground transition-colors hover:bg-accent hover:text-foreground",
+              FOCUS,
+            )}
+          >
+            <X className="size-4" aria-hidden />
+          </DialogPrimitive.Close>
+        )}
+      </DialogPrimitive.Content>
+    </DialogPortal>
+  );
+});
 
-export function DialogFooter({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("mt-1 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end", className)} {...props} />;
+export function DialogFooter({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      className={cn(
+        "mt-1 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
+        className,
+      )}
+      {...props}
+    />
+  );
 }
 
 /* -------------------------------------------------------------- confirm -- */
@@ -235,14 +266,22 @@ export function ConfirmDialog({
         onPointerDownOutside={(e) => e.preventDefault()}
         onOpenAutoFocus={(e) => {
           e.preventDefault();
-          (confirmText !== undefined ? document.getElementById(inputId) : cancelRef.current)?.focus();
+          (confirmText !== undefined
+            ? document.getElementById(inputId)
+            : cancelRef.current
+          )?.focus();
         }}
       >
         {children}
         {confirmText !== undefined && (
           <div className="grid gap-1.5">
-            <label htmlFor={inputId} className="text-[12.5px] text-muted-foreground">
-              Type <span className="font-medium text-foreground">{confirmText}</span> to confirm
+            <label
+              htmlFor={inputId}
+              className="text-[12.5px] text-muted-foreground"
+            >
+              Type{" "}
+              <span className="font-medium text-foreground">{confirmText}</span>{" "}
+              to confirm
             </label>
             <input
               id={inputId}
@@ -265,7 +304,11 @@ export function ConfirmDialog({
             </Button>
           </DialogClose>
           <Button
-            variant={(destructive ? "destructive" : "primary") as ButtonProps["variant"]}
+            variant={
+              (destructive
+                ? "destructive"
+                : "primary") as ButtonProps["variant"]
+            }
             loading={busy}
             disabled={locked}
             onClick={run}
