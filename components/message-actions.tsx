@@ -54,7 +54,7 @@ function cn(...inputs: ClassValue[]) {
 
 interface TooltipProps {
   label: string;
-  children: React.ReactElement;
+  children: React.ReactElement<{ title?: string }>;
 }
 
 function Tooltip({ label, children }: TooltipProps) {
