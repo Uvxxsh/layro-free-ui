@@ -53,9 +53,21 @@ This repository contains 15 free Layro components. Each one is a single file you
 
 ## Getting started
 
-Each component is a single self-contained `.tsx` file. Copy the ones you want into your project (for example `components/ui/`). Chat Message, Prompt Input, Streaming Response, Message Actions, Data Table, Dialog and Auth Forms import `./button`, so copy `button.tsx` next to them. AI Chat is built from the other AI components, so copy it together with `button.tsx`, `chat-message.tsx`, `streaming-response.tsx`, `thinking-state.tsx`, `message-actions.tsx` and `prompt-input.tsx`.
+### Install with the shadcn CLI
 
-### 1. Install the dependencies
+If your project already uses [shadcn/ui](https://ui.shadcn.com), add any component by URL:
+
+```bash
+npx shadcn@latest add https://raw.githubusercontent.com/Uvxxsh/layro-free-ui/main/r/ai-chat.json
+```
+
+Swap `ai-chat` for any file name in the tables above (`button`, `data-table`, `chart`, `file-upload` and so on). The CLI installs the npm packages, adds the success, warning and info colours and the animations to your global CSS, and copies the file into `components/layro/` along with any Layro components it uses. That folder keeps them apart from your shadcn/ui `components/ui/button.tsx`, so nothing gets overwritten.
+
+### Or copy the files
+
+Each component is a single self-contained `.tsx` file. Copy the ones you want into one folder in your project (for example `components/layro/`). Chat Message, Prompt Input, Streaming Response, Message Actions, Data Table, Dialog and Auth Forms import `./button`, so copy `button.tsx` next to them. AI Chat is built from the other AI components, so copy it together with `button.tsx`, `chat-message.tsx`, `streaming-response.tsx`, `thinking-state.tsx`, `message-actions.tsx` and `prompt-input.tsx`.
+
+#### 1. Install the dependencies
 
 Every component needs React 18 or 19 and Tailwind CSS v4. Most also use:
 
@@ -75,7 +87,7 @@ A few need one more package:
 | Dialog | `@radix-ui/react-dialog` |
 | Auth Forms | `@radix-ui/react-checkbox @radix-ui/react-label input-otp` |
 
-### 2. Add the theme
+#### 2. Add the theme
 
 The components use the standard shadcn/ui colour variables (`background`, `card`, `foreground`, `muted`, `primary`, `border`, `ring`, `destructive`, `chart-1` to `chart-5`), so an existing shadcn/ui theme already covers most of them.
 
@@ -91,7 +103,9 @@ Light and dark mode follow the `.dark` class, the same as shadcn/ui.
 ## Quick example
 
 ```tsx
-import { AIChat } from "@/components/ui/ai-chat";
+"use client";
+
+import { AIChat } from "@/components/layro/ai-chat";
 
 export default function Page() {
   return (
@@ -101,7 +115,12 @@ export default function Page() {
       // Omit onSend to try it with the built-in simulator.
       onSend={async function* ({ messages, signal }) {
         const res = await fetch("/api/chat", { method: "POST", body: JSON.stringify({ messages }), signal });
-        for await (const chunk of res.body!.pipeThrough(new TextDecoderStream())) yield chunk;
+        const reader = res.body!.pipeThrough(new TextDecoderStream()).getReader();
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) return;
+          yield value;
+        }
       }}
     />
   );
@@ -165,6 +184,8 @@ This repository contains the free portion of the Layro UI library.
 The full Layro library includes additional production-ready components, collections, and complete React & Next.js templates.
 
 Visit https://layropro.com to explore the complete library.
+
+The `r/` folder is the shadcn registry, generated from `registry.json`. After changing a component, rebuild it with `npx shadcn@latest build -o r`.
 
 ---
 
